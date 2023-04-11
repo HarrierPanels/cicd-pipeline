@@ -19,7 +19,7 @@ pipeline {
             } 
             
         } 
-        stage('Generate Logo') { 
+        stage('Generate Logo main') { 
             when { branch 'main' } 
             steps { 
                 sh label: 'Generate Logo', script: '''
@@ -40,7 +40,7 @@ EOF
             } 
             
         } 
-        stage('Generate Logo') { 
+        stage('Generate Logo dev') { 
             when { branch 'dev' } 
             steps { 
                 sh label: 'Generate Logo', script: '''
