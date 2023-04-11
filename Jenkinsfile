@@ -1,6 +1,6 @@
 pipeline { 
-    agent any
-    tools {nodejs "nodejs"} 
+    agent { label 'slave1' } 
+    tools {nodejs "node"} 
     stages { 
         stage('Checkout') { 
             steps { checkout scm } 
