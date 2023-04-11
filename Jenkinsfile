@@ -54,7 +54,7 @@ EOF
             } 
             
         } 
-        stage('Deploy') { 
+        stage('Deploy dev') { 
             when { changeset "dev/**" } 
             steps { 
                 sh 'docker run -d -p 3001:3000 -v $(pwd)/src:/usr/src/app/src cicd-pipeline' 
@@ -62,7 +62,7 @@ EOF
             } 
             
         } 
-        stage('Deploy') { 
+        stage('Deploy nain') { 
             when { changeset "main/**" } 
             steps { 
                 sh 'docker run -d -p 3000:3000 -v $(pwd)/src:/usr/src/app/src cicd-pipeline' 
