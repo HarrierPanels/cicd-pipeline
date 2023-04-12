@@ -27,7 +27,7 @@ pipeline {
             steps { 
                 sh label: 'Generate Logo', script: '''
 cat <<EOF > main_logo.svg
-svg width="150" height="150" xmlns="http://www.w3.org/2000/svg"> \
+<svg width="150" height="150" xmlns="http://www.w3.org/2000/svg"> \
 <circle cx="75" cy="75" r="60" fill="#25f363" /> </svg>
 EOF
                 '''
@@ -48,7 +48,7 @@ EOF
             steps { 
                 sh label: 'Generate Logo', script: '''
 cat <<EOF > dev_logo.svg
-svg width="150" height="150" xmlns="http://www.w3.org/2000/svg"> \
+<svg width="150" height="150" xmlns="http://www.w3.org/2000/svg"> \
 <circle cx="75" cy="75" r="60" fill="#F36D25" /> </svg>
 EOF
                 ''' 
