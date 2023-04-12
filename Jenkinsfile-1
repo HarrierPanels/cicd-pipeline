@@ -8,13 +8,15 @@ pipeline {
                 
             } 
             
-        } 
-        stage('Build') { 
-            steps { 
-                sh 'npm install' 
-                
-            } 
-            
+        }
+        stage('Build') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    sh 'npm install'
+                }
+
+            }
+
         } 
         stage('Test') { 
             steps { 
