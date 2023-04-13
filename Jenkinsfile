@@ -13,7 +13,7 @@ pipeline {
         stage('Build') { 
             steps {
                 timeout(time: 2, unit: 'MINUTES') { 
-                    sh 'npm install'
+                    sh 'npm install 19.0.0'
                 } 
                 
             } 
