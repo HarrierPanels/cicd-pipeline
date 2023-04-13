@@ -1,7 +1,7 @@
 pipeline { 
     agent {
  
-	label 'slave1'
+	label 'aws-linux'
  
     } 
     tools {nodejs "node"} 
