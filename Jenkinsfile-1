@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                timeout(time: 25, unit: 'MINUTES') {
+                timeout(time: 2, unit: 'MINUTES') {
                     sh 'npm install'
                 }
 
