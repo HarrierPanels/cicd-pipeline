@@ -1,4 +1,4 @@
-FROM node:16.16.0
+FROM node:lts
 WORKDIR /opt
 ADD . /opt
 RUN npm install
