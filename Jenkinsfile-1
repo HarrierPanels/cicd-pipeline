@@ -61,20 +61,30 @@ EOF
             } 
             
         }
-        stage('Deploy dev') {
-            when { changeset "dev/**" }
+        stage('Build Docker Image nodedev:v1.0') {
+            when { branch 'dev' }
             steps {
-                sh 'docker run -d -p 3001:3000 nodedev:v1.0'
+                sh 'docker build -t nodedev:v1.0 .'
 
             }
 
-        } 
+        }
         stage('Deploy dev') {
             when { changeset "dev/**" }
             steps {
                 timeout(time: 5, unit: 'MINUTES')
                 { input message: 'Deploy?', ok: 'Yes' }
                 sh 'docker run -d -p ${env.PORT}:3001 nodedev:v1.0'
+
+            }
+
+        }
+        stage('Deploy main') {
+            when { changeset "main/**" }
+            steps {
+                timeout(time: 5, unit: 'MINUTES')
+                { input message: 'Deploy?', ok: 'Yes' }
+                sh 'docker run -d -p ${env.PORT}:3000 nodemain:v1.0'
 
             }
 
