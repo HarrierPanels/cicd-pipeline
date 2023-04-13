@@ -1,4 +1,4 @@
-FROM node:19.0.0
+FROM node:16.16.0
 WORKDIR /opt
 ADD . /opt
 RUN npm install
