@@ -13,7 +13,7 @@ pipeline {
         stage('Build') { 
             steps {
                 timeout(time: 2, unit: 'MINUTES') { 
-                    sh 'npm install --verbose'
+                    sh 'npm install'
                 } 
                 
             } 
