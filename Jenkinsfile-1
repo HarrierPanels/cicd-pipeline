@@ -8,7 +8,8 @@ pipeline {
                 
             } 
             
-        } stage('Build') { 
+        } 
+        stage('Build') { 
             steps { 
                 timeout(time: 2, unit: 'MINUTES') { 
                     sh 'npm install --lts' 
@@ -17,7 +18,8 @@ pipeline {
                 
             } 
             
-        } stage('Test') { 
+        } 
+        stage('Test') { 
             steps { 
                 sh 'npm test' 
                 
