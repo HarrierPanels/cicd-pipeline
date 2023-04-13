@@ -40,13 +40,14 @@ EOF
             } 
             
         } 
-        stage('Build Docker Image') { 
+        stage('Build Docker Image nodemain:v1.0') {
+            when { branch 'main' }
             steps { 
-                sh 'docker build -t cicd-pipeline .' 
+                sh 'docker build -t nodemain:v1.0 .' 
                 
             } 
             
-        } 
+        }
         stage('Generate Logo dev') { 
             when { branch 'dev' } 
             steps { 
@@ -60,11 +61,19 @@ EOF
                 
             } 
             
+        }
+        stage('Build Docker Image nodedev:v1.0') {
+            when { branch 'dev' }
+            steps {
+                sh 'docker build -t nodedev:v1.0 .'
+
+            }
+
         } 
         stage('Deploy dev') { 
             when { changeset "dev/**" } 
             steps { 
-                sh 'docker run -d -p 3001:3000 -v $(pwd)/src:/usr/src/app/src cicd-pipeline' 
+                sh 'docker run -d -p 3001:3000 nodedev:v1.0' 
                 
             } 
             
@@ -72,7 +81,7 @@ EOF
         stage('Deploy nain') { 
             when { changeset "main/**" } 
             steps { 
-                sh 'docker run -d -p 3000:3000 -v $(pwd)/src:/usr/src/app/src cicd-pipeline' 
+                sh 'docker run -d -p 3000:3000 nodemain:v1.0' 
                 
             } 
             
@@ -81,3 +90,4 @@ EOF
     } 
     
 }
+
