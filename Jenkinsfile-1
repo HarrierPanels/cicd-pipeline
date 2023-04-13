@@ -9,5 +9,13 @@ pipeline {
                 echo "Hello World!"
             }
         }
+        stage("Build") {
+            when {
+                changelog ".*Jenkins.*"
+            }
+            steps {
+                echo "Hey World!"
+            }
+        }
     }
 }
