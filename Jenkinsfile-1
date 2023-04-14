@@ -2,6 +2,11 @@ pipeline {
     agent { 
         label 'aws-linux'
     }
+    environment { 
+        env.MAIN_PORT = '3000' 
+        env.DEV_PORT = '3001' 
+        
+    }
     tools {nodejs "node"} 
     stages { 
         stage('Checkout') { 
@@ -87,9 +92,11 @@ EOF
         stage('Deploy dev') {
             when { changeset "dev/**" }
             steps {
-                timeout(time: 5, unit: 'MINUTES')
-                { input message: 'Deploy?', ok: 'Yes' }
-                sh 'docker run -d -p ${env.PORT}:3001 nodedev:v1.0'
+                timeout(time: 5, unit: 'MINUTES') { 
+                    input message: 'Deploy?', ok: 'Yes' 
+                    
+                }
+                sh 'docker run -d -p ${env.DEV_PORT}:3000 nodedev:v1.0'
 
             }
 
@@ -97,9 +104,11 @@ EOF
         stage('Deploy main') {
             when { changeset "main/**" }
             steps {
-                timeout(time: 5, unit: 'MINUTES')
-                { input message: 'Deploy?', ok: 'Yes' }
-                sh 'docker run -d -p ${env.PORT}:3000 nodemain:v1.0'
+                timeout(time: 5, unit: 'MINUTES') { 
+                    input message: 'Deploy?', ok: 'Yes' 
+                    
+                }
+                sh 'docker run -d -p ${env.MAIN_PORT}:3000 nodemain:v1.0'
 
             }
 
