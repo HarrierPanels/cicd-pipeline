@@ -10,7 +10,7 @@ pipeline {
                 }
             }
             steps {
-                echo "Deploy. production."
+                echo "Deploy production."
             }
         }
     }
