@@ -28,7 +28,9 @@ pipeline {
             
         } 
         stage('Generate Logo main') { 
-            when { branch 'main' } 
+            when { 
+                branch 'main' 
+            } 
             steps { 
                 sh label: 'Generate Logo', script: '''
 cat <<EOF > main_logo.svg
