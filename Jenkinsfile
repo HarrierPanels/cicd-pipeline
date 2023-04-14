@@ -3,8 +3,8 @@ pipeline {
         label 'aws-linux'
     }
     environment { 
-        MAIN_PORT = '3000' 
-        DEV_PORT = '3001' 
+        MAIN_PORT = params.MAIN_PORT ?: '3000' 
+        DEV_PORT = params.DEV_PORT ?: '3001' 
         
     }
     tools {nodejs "node"} 
@@ -96,7 +96,7 @@ EOF
                     input message: 'Deploy?', ok: 'Yes' 
                     
                 }
-                sh 'docker run -d -p ${DEV_PORT}:3000 nodedev:v1.0'
+                sh "docker run -d -p ${DEV_PORT}:3000 nodedev:v1.0"
 
             }
 
@@ -108,7 +108,7 @@ EOF
                     input message: 'Deploy?', ok: 'Yes' 
                     
                 }
-                sh 'docker run -d -p ${MAIN_PORT}:3000 nodemain:v1.0'
+                sh "docker run -d -p ${MAIN_PORT}:3000 nodemain:v1.0"
 
             }
 
