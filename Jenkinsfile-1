@@ -2,17 +2,18 @@ pipeline {
     agent { 
         label 'slave1'
     }
-    stage('Build') {
-        steps {
-            script {
-                def commit = checkout scm
-                // we set BRANCH_NAME to make when { branch } syntax work without multibranch job
-                env.BRANCH_NAME = commit.GIT_BRANCH.replace('origin/', '')
-                //actually build ...
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    def commit = checkout scm
+                    // we set BRANCH_NAME to make when { branch } syntax work without multibranch job
+                    env.BRANCH_NAME = commit.GIT_BRANCH.replace('origin/', '')
+
+                    //actually build ...
+                }
             }
         }
-    }
-    stages {
         stage("Deploy") {
             when { 
                 anyOf { branch 'main'; branch 'dev' 
@@ -20,7 +21,7 @@ pipeline {
                 }
             }
             steps {
-                echo "Deploy! production."
+                echo "Deploy production."
             }
         }
     }
