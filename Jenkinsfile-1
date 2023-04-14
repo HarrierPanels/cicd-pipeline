@@ -17,7 +17,7 @@ pipeline {
         stage("Deploy to main") {
             when { 
                 // branch 'main' 
-                changeset "main/**"    
+                changeset "main/*"    
             }
             steps {
                 echo "Deploy to main production."
@@ -26,7 +26,7 @@ pipeline {
         stage("Deploy to dev") {
             when { 
                // branch 'dev' 
-               changeset "dev/**"     
+               changeset "dev/*"     
             }
             steps {
                 echo "Deploy to dev production."
