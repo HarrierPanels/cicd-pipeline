@@ -8,7 +8,7 @@ pipeline {
 //                branch "main"
 //            }
             steps {
-                echo "Deploy production."
+                echo "Deploy. production."
             }
         }
     }
