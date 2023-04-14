@@ -5,9 +5,7 @@ pipeline {
     stages {
         stage("Deploy") {
             when {
-                allOf {
-                    branch "main"
-                }
+                branch "main"
             }
             steps {
                 echo "Deploy to production."
