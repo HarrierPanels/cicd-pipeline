@@ -90,7 +90,7 @@ EOF
 
         }
         stage('Deploy dev') {
-            when { changeset "dev/**" }
+            when { changeset "*/dev" }
             steps {
                 timeout(time: 5, unit: 'MINUTES') { 
                     input message: 'Deploy?', ok: 'Yes' 
@@ -102,7 +102,7 @@ EOF
 
         }
         stage('Deploy main') {
-            when { changeset "main/**" }
+            when { changeset "*/main" }
             steps {
                 timeout(time: 5, unit: 'MINUTES') { 
                     input message: 'Deploy?', ok: 'Yes' 
