@@ -1,5 +1,7 @@
 pipeline { 
-    agent { label 'aws-linux' }
+    agent { 
+        label 'aws-linux'
+    }
     tools {nodejs "node"} 
     stages { 
         stage('Checkout') { 
