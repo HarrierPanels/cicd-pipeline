@@ -5,8 +5,8 @@ pipeline {
  
     }
     environment {
-       env.MAIN_PORT = "3000"
-       env.DEV_PORT = "3001"
+       MAIN_PORT = '3000'
+       DEV_PORT = '3001'
 
     } 
     tools {nodejs "node"} 
@@ -78,6 +78,7 @@ EOF
         stage('Deploy dev') { 
             when { branch 'dev' } 
             steps { 
+                sh 'echo env.DEV_PORT'
                 sh 'docker run -d -p env.DEV_PORT:3000 nodedev:v1.0' 
                 
             } 
@@ -85,7 +86,8 @@ EOF
         } 
         stage('Deploy nain') { 
             when { branch 'main' } 
-            steps { 
+            steps {
+                sh 'echo env.MAIN_PORT' 
                 sh 'docker run -d -p env.MAIN_PORT:3000 nodemain:v1.0' 
                 
             } 
