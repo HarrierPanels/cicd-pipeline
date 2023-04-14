@@ -68,7 +68,7 @@ EOF
             
         }
         stage('Build Docker Image nodedev:v1.0') {
-            when { branch 'dev' }
+            when { branch "dev" }
             steps {
                 sh 'docker build -t nodedev:v1.0 .'
 
