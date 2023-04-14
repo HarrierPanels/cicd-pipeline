@@ -6,7 +6,7 @@ pipeline {
         stage("Deploy") {
             when {
                 allOf {
-                    branch "master"
+                    branch "main"
                 }
             }
             steps {
