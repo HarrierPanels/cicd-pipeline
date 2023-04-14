@@ -4,7 +4,6 @@ pipeline {
 	label 'aws-linux'
  
     }
-    }
     environment {
         MAIN_PORT = '3000'
         DEV_PORT = '3001'
