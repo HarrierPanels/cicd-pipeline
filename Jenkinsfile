@@ -78,7 +78,9 @@ EOF
         stage('Deploy dev') { 
             when { branch 'dev' } 
             steps { 
-                sh 'docker run -d -p ${env.DEV_PORT}:3000 nodedev:v1.0' 
+                sh '''
+                   docker run -d -p ${env.DEV_PORT}:3000 nodedev:v1.0'
+                ''' 
                 
             } 
             
