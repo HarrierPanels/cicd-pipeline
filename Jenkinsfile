@@ -78,7 +78,7 @@ EOF
         stage('Deploy dev') { 
             when { branch 'dev' } 
             steps { 
-                echo ${env.DEV_PORT}
+                echo "${env.DEV_PORT}"
                 sh 'docker run -d -p ${env.DEV_PORT}:3000 nodedev:v1.0' 
                 
             } 
@@ -87,7 +87,7 @@ EOF
         stage('Deploy nain') { 
             when { branch 'main' } 
             steps {
-                echo ${env.MAIN_PORT} 
+                echo "${env.MAIN_PORT}" 
                 sh 'docker run -d -p "${env.MAIN_PORT}":3000 nodemain:v1.0' 
                 
             } 
