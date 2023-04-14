@@ -1,29 +1,28 @@
 pipeline { 
-    agent { 
-        label 'aws-linux'
+    agent {
+ 
+	label 'aws-linux'
+ 
     }
-    environment { 
-        MAIN_PORT = '3000' 
-        DEV_PORT = '3001' 
-        
-    }
+    environment {
+       MAIN_PORT = "3000"
+       DEV_PORT = "3001"
+
+    } 
     tools {nodejs "node"} 
     stages { 
         stage('Checkout') { 
-            steps { 
-                checkout scm 
+            steps { checkout scm } 
+            
+        } 
+        stage('Build') { 
+            steps {
+                timeout(time: 2, unit: 'MINUTES') { 
+                    sh 'npm install --lts'
+                } 
                 
             } 
             
-        }
-        stage('Build') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    sh 'npm install'
-                }
-
-            }
-
         } 
         stage('Test') { 
             steps { 
@@ -31,22 +30,9 @@ pipeline {
                 
             } 
             
-        }
-        stage('Set branch name for conditionals') {
-            steps {
-                script {
-                    def commit = checkout scm
-                    // set BRANCH_NAME to make when { branch } syntax work without multibranch job
-                    env.BRANCH_NAME = commit.GIT_BRANCH.replace('origin/', '')
-
-                    //actually proceeding to next stages ...
-                }
-            }
-        }        
+        } 
         stage('Generate Logo main') { 
-            when { 
-                branch 'main' 
-            } 
+            when { branch 'main' } 
             steps { 
                 sh label: 'Generate Logo', script: '''
 cat <<EOF > main_logo.svg
@@ -58,14 +44,14 @@ EOF
                 
             } 
             
-        }
+        } 
         stage('Build Docker Image nodemain:v1.0') {
             when { branch 'main' }
-            steps {
-                sh 'docker build -t nodemain:v1.0 .'
-
-            }
-
+            steps { 
+                sh 'docker build -t nodemain:v1.0 .' 
+                
+            } 
+            
         }
         stage('Generate Logo dev') { 
             when { branch 'dev' } 
@@ -82,37 +68,31 @@ EOF
             
         }
         stage('Build Docker Image nodedev:v1.0') {
-            when { branch 'dev' }
+            when { branch "dev" }
             steps {
                 sh 'docker build -t nodedev:v1.0 .'
 
             }
 
-        }
-        stage('Deploy dev') {
-            when { branch 'dev' }
+        } 
+        stage('Deploy dev') { 
+            when { branch 'dev' } 
+            steps { 
+                sh '''
+                   docker run -d -p ${env.DEV_PORT}:3000 nodedev:v1.0'
+                ''' 
+                
+            } 
+            
+        } 
+        stage('Deploy nain') {
+            when { branch 'main' } 
             steps {
-                timeout(time: 5, unit: 'MINUTES') { 
-                    input message: 'Deploy?', ok: 'Yes' 
-                    
-                }
-                sh "docker run -d -p ${DEV_PORT}:3000 nodedev:v1.0"
-
-            }
-
-        }
-        stage('Deploy main') {
-            when { branch 'main' }
-            steps {
-                timeout(time: 5, unit: 'MINUTES') { 
-                    input message: 'Deploy?', ok: 'Yes' 
-                    
-                }
-                sh "docker run -d -p ${MAIN_PORT}:3000 nodemain:v1.0"
-
-            }
-
-        }
+                sh "docker run -d -p ${env.MAIN_PORT}:3000 nodemain:v1.0" 
+                
+            } 
+            
+        } 
         
     } 
     
