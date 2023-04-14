@@ -14,15 +14,23 @@ pipeline {
                 }
             }
         }
-        stage("Deploy") {
+        stage("Deploy to main") {
             when { 
-                anyOf { branch 'main'; branch 'dev' 
+                branch 'main' 
                     
-                }
             }
             steps {
-                echo "Deploy production."
+                echo "Deploy to main production."
             }
         }
+        stage("Deploy to dev") {
+            when { 
+                branch 'dev' 
+                    
+            }
+            steps {
+                echo "Deploy to dev production."
+            }
+        }       
     }
 }
