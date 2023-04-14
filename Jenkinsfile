@@ -5,8 +5,8 @@ pipeline {
  
     }
     environment {
-        MAIN_PORT = '3000'
-        DEV_PORT = '3001'
+        MAIN_PORT = "3000"
+        DEV_PORT = "3001"
 
     } 
     tools {nodejs "node"} 
