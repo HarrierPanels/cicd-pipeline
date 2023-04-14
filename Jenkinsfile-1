@@ -1,6 +1,6 @@
 pipeline { 
     agent { 
-        label 'local'
+        label 'slave1'
     }
     stages {
         stage("Deploy") {
