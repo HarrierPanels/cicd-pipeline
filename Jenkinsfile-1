@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage("Deploy") {
             when { 
-                anyof { branch 'main'; branch 'dev' 
+                anyOf { branch 'main'; branch 'dev' 
                     
                 }
             }
