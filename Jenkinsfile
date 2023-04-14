@@ -76,19 +76,17 @@ EOF
 
         } 
         stage('Deploy dev') { 
-            def DEV_PORT = "3001"
             when { branch 'dev' } 
             steps { 
-                sh 'docker run -d -p ${DEV_PORT}:3000 nodedev:v1.0' 
+                sh 'docker run -d -p ${env.DEV_PORT}:3000 nodedev:v1.0' 
                 
             } 
             
         } 
         stage('Deploy nain') {
-            def MAIN_PORT = "3000" 
             when { branch 'main' } 
             steps {
-                sh 'docker run -d -p "${MAIN_PORT}":3000 nodemain:v1.0' 
+                sh 'docker run -d -p "${env.MAIN_PORT}":3000 nodemain:v1.0' 
                 
             } 
             
