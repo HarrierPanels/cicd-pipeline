@@ -3,6 +3,12 @@ pipeline {
  
 	label 'aws-linux'
  
+    }
+    }
+    environment {
+        MAIN_PORT = '3000'
+        DEV_PORT = '3001'
+
     } 
     tools {nodejs "node"} 
     stages { 
@@ -71,17 +77,17 @@ EOF
 
         } 
         stage('Deploy dev') { 
-            when { changeset "dev/**" } 
+            when { branch 'dev' } 
             steps { 
-                sh 'docker run -d -p 3001:3000 nodedev:v1.0' 
+                sh 'docker run -d -p $(DEV_PORT):3000 nodedev:v1.0' 
                 
             } 
             
         } 
         stage('Deploy nain') { 
-            when { changeset "main/**" } 
+            when { branch 'main' } 
             steps { 
-                sh 'docker run -d -p 3000:3000 nodemain:v1.0' 
+                sh 'docker run -d -p $(MAIN_PORT):3000 nodemain:v1.0' 
                 
             } 
             
@@ -90,4 +96,3 @@ EOF
     } 
     
 }
-
