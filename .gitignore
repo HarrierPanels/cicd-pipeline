@@ -1,2 +1,2 @@
-*.exe
-*.logs
+*.pdf
+!Cloud*.pdf
