@@ -18,7 +18,7 @@ pipeline {
         stage('Build') { 
             steps {
                 timeout(time: 2, unit: 'MINUTES') { 
-                    sh './scripts/build.sh'
+                    sh 'chmod +x scripts/build.sh && ./scripts/build.sh'
                 } 
                 
             } 
@@ -26,7 +26,7 @@ pipeline {
         } 
         stage('Test') { 
             steps { 
-                sh './scripts/test.sh' 
+                sh 'chmod +x scripts/test.sh && ./scripts/test.sh' 
                 
             } 
             
