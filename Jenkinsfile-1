@@ -1,6 +1,6 @@
 pipeline { 
     agent { 
-        label 'aws-linux2'
+        label 'aws-linux'
     }
     environment { 
         MAIN_PORT = '3000' 
