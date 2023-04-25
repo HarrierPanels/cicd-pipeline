@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     sh 'chmod +x scripts/build.sh && ./scripts/build.sh'
                     // sh 'npm install'
                 }
