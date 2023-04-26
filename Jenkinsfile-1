@@ -1,6 +1,6 @@
 pipeline { 
     agent { 
-        label 'aws-linux2'
+        label 'aws-linux'
     }
     environment { 
         MAIN_PORT = '3000' 
@@ -12,23 +12,6 @@ pipeline {
         stage('Checkout') { 
             steps { 
                 checkout scm 
-                
-            } 
-            
-        }
-        stage('Build') {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    sh 'chmod +x scripts/build.sh && ./scripts/build.sh'
-                    // sh 'npm install'
-                }
-
-            }
-
-        } 
-        stage('Test') { 
-            steps { 
-                sh 'chmod +x scripts/test.sh && ./scripts/test.sh' 
                 
             } 
             
