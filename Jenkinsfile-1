@@ -16,6 +16,23 @@ pipeline {
             } 
             
         }
+        stage('Build') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    sh 'chmod +x scripts/build.sh && ./scripts/build.sh'
+                    // sh 'npm install'
+                }
+
+            }
+
+        } 
+        stage('Test') { 
+            steps { 
+                sh 'chmod +x scripts/test.sh && ./scripts/test.sh' 
+                
+            } 
+            
+        }
         stage('Set branch name for conditionals') {
             steps {
                 script {
